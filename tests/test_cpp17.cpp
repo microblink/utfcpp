@@ -1,4 +1,8 @@
+#if __has_include(<gtest/gtest.h>)
+#include <gtest/gtest.h>
+#else
 #include "../extern/ftest/ftest.h"
+#endif
 #include "utf8.h"
 #include <string>
 using namespace utf8;

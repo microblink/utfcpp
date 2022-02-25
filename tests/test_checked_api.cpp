@@ -1,5 +1,9 @@
+#if __has_include(<gtest/gtest.h>)
+#include <gtest/gtest.h>
+#else
 #define F_TEST_NO_MAIN
 #include "../extern/ftest/ftest.h"
+#endif
 #include "utf8.h"
 
 #include <string>
