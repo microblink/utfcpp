@@ -1,9 +1,15 @@
 cmake_minimum_required (VERSION 3.0.2)
-project (utf8cpp VERSION 3.1 LANGUAGES CXX)
+project (utf8cpp VERSION 3.2 LANGUAGES CXX)
 
-option(UTF8_TESTS "Enable tests for UTF8-CPP" On)
-option(UTF8_INSTALL "Enable installation for UTF8-CPP" On)
-option(UTF8_SAMPLES "Enable building samples for UTF8-CPP" On)
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    set(IS_ROOT_PROJECT ON)
+else()
+    set(IS_ROOT_PROJECT OFF)
+endif()
+
+option(UTF8_TESTS "Enable tests for UTF8-CPP" ${IS_ROOT_PROJECT})
+option(UTF8_INSTALL "Enable installation for UTF8-CPP" ${IS_ROOT_PROJECT})
+option(UTF8_SAMPLES "Enable building samples for UTF8-CPP" ${IS_ROOT_PROJECT})
 
 add_library(utf8cpp INTERFACE)
 target_include_directories(utf8cpp INTERFACE
@@ -13,7 +19,7 @@ target_include_directories(utf8cpp INTERFACE
 add_library(utf8::cpp ALIAS utf8cpp)
 
 if(UTF8_INSTALL)
-    if(WIN32 AND NOT CYGWIN)
+    if(MSVC)
         set(DEF_INSTALL_CMAKE_DIR CMake)
     else()
         include(GNUInstallDirs) # define CMAKE_INSTALL_*
@@ -32,6 +38,5 @@ endif()
 
 if(UTF8_TESTS)
     enable_testing()
-    add_subdirectory(extern/gtest)
     add_subdirectory(tests)
 endif()
