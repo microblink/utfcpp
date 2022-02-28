@@ -1,4 +1,6 @@
 # VS Code:
 .vscode/
-# Often used by CMake 
+# Often used by CMake
 build/
+# Vim swapfiles
+*.sw*
