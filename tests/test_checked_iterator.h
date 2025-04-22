@@ -1,3 +1,6 @@
+#ifndef UTF8_FOR_CPP_TEST_CHECKED_ITERATOR_H_2675DCD0_9480_4c0c_B92A_CC14C027B731
+#define UTF8_FOR_CPP_TEST_CHECKED_ITERATOR_H_2675DCD0_9480_4c0c_B92A_CC14C027B731
+
 #if __has_include(<gtest/gtest.h>)
 #include <gtest/gtest.h>
 #else
@@ -34,3 +37,5 @@ TEST(CheckedIteratrTests, test_decrement)
     EXPECT_EQ (--it, utf8::iterator<const char*>(threechars, threechars, threechars + 9));
     EXPECT_EQ (*it, 0x10346);
 }
+
+#endif
