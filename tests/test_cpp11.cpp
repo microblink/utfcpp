@@ -69,8 +69,8 @@ TEST(CPP11APITests, test_utf8to16)
     EXPECT_EQ (utf16result[2], 0xd834);
     EXPECT_EQ (utf16result[3], 0xdd1e);
     // Just to make sure it compiles with string literals
-    utf8to16(u8"simple");
-    utf8to16("simple");
+    utf8to16( std::string{ reinterpret_cast< const char * >( u8"simple" ) } );
+    utf8to16( std::string{ "simple" } );
 }
 
 TEST(CPP11APITests, test_utf32to8)
@@ -83,7 +83,7 @@ TEST(CPP11APITests, test_utf32to8)
 TEST(CPP11APITests, test_utf8to32)
 {
     const char* twochars = "\xe6\x97\xa5\xd1\x88";
-    u32string utf32result = utf8to32(twochars);
+    u32string utf32result = utf8to32( std::string{ twochars } );
     EXPECT_EQ (utf32result.size(), 2);
 }
 

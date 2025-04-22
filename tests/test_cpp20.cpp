@@ -1,4 +1,8 @@
+#if __has_include(<gtest/gtest.h>)
+#include <gtest/gtest.h>
+#else
 #include "../extern/ftest/ftest.h"
+#endif
 #define UTF_CPP_CPLUSPLUS 202002L
 #include "utf8.h"
 #include <string>
