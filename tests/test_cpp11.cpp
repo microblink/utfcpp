@@ -41,11 +41,24 @@ TEST(CPP11APITests, test_append)
     EXPECT_EQ (u.length(), 4);
 }
 
+TEST(CPP11APITests, test_append16)
+{
+    u16string u;
+    append16(0x0448, u);
+    EXPECT_EQ (u[0], char16_t(0x0448));
+    EXPECT_EQ (u.length(), 1);
+}
+
 TEST(CPP11APITests, test_utf16to8)
 {
     u16string utf16string = {0x41, 0x0448, 0x65e5, 0xd834, 0xdd1e};
     string u = utf16to8(utf16string);
     EXPECT_EQ (u.size(), 10);
+
+    u16string h16 = u"h!";
+    string h8;
+    utf8::unchecked::utf16to8(h16.begin(), h16.end(), std::back_inserter(h8));
+    EXPECT_EQ (h8, "h!");
 }
 
 TEST(CPP11APITests, test_utf8to16)
@@ -56,8 +69,8 @@ TEST(CPP11APITests, test_utf8to16)
     EXPECT_EQ (utf16result[2], 0xd834);
     EXPECT_EQ (utf16result[3], 0xdd1e);
     // Just to make sure it compiles with string literals
-    utf8to16(u8"simple");
-    utf8to16("simple");
+    utf8to16( std::string{ reinterpret_cast< const char * >( u8"simple" ) } );
+    utf8to16( std::string{ "simple" } );
 }
 
 TEST(CPP11APITests, test_utf32to8)
@@ -70,7 +83,7 @@ TEST(CPP11APITests, test_utf32to8)
 TEST(CPP11APITests, test_utf8to32)
 {
     const char* twochars = "\xe6\x97\xa5\xd1\x88";
-    u32string utf32result = utf8to32(twochars);
+    u32string utf32result = utf8to32( std::string{ twochars } );
     EXPECT_EQ (utf32result.size(), 2);
 }
 
